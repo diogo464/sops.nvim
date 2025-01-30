@@ -1,11 +1,16 @@
 local config = {
     --- sops binary path
-    ---@type string | nil
-    sops_path = nil,
+    ---@type string
+    sops_path = "",
+
+
+    --- create user commands
+    ---@type boolean
+    user_commands = true,
 }
 
 function config.resolve_sops_path()
-    if config.sops_path == nil then
+    if config.sops_path == "" then
         return vim.fn.exepath("sops")
     else
         return config.sops_path
