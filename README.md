@@ -28,7 +28,7 @@
 - `SopsEncrypt`: encrypts the current buffer.
 - `SopsDecrypt`: decrypts the current buffer.
 - `SopsView`: decrypts the current buffer and shows the output in a scratch buffer.
-- `SopsEdit`: decrypts the curretn buffer and re-encrypts it on write.
+- `SopsEdit`: decrypts the current buffer and re-encrypts it on write.
 
 
 ## API
