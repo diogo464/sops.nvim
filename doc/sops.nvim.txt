@@ -20,7 +20,6 @@ INSTALLATION (LAZY.NVIM)        *sops.nvim-sops.nvim-installation-(lazy.nvim)*
 >lua
     {
         "diogo464/sops.nvim",
-        -- this is required, even if empty.
         -- see the configuration section bellow for available options.
         opts = {}
     }

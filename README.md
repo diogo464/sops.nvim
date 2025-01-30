@@ -7,7 +7,6 @@
 ```lua
 {
     "diogo464/sops.nvim",
-    -- this is required, even if empty.
     -- see the configuration section bellow for available options.
     opts = {}
 }
