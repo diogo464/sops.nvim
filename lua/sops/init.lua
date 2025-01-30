@@ -34,6 +34,15 @@ local function buffer_reload(bufnr)
     end)
 end
 
+---get the buffer's content as a string
+---@param bufnr number
+---@return string content
+local function buffer_content(bufnr)
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
+    local content = table.concat(lines, "\n")
+    return content
+end
+
 ---show lines on a scratch buffer
 ---@param lines string[]
 ---@param filetype? string
@@ -101,13 +110,22 @@ function M.edit(bufnr)
     local filepath = vim.api.nvim_buf_get_name(bufnr)
 
     buffer_save(bufnr)
+    local content_encrypted = buffer_content(bufnr)
     sops_run({ "decrypt", "-i", filepath })
     buffer_reload(bufnr)
+    local content_pre = buffer_content(bufnr)
     vim.api.nvim_create_autocmd("BufWritePost", {
         once = true,
         buffer = bufnr,
         callback = function()
-            M.encrypt(bufnr)
+            local content_post = buffer_content(bufnr)
+            if content_post == content_pre then
+                local lines = vim.split(content_encrypted, "\n")
+                vim.api.nvim_buf_set_lines(bufnr, 0, -1, true, lines)
+                buffer_save(bufnr)
+            else
+                M.encrypt(bufnr)
+            end
         end
     })
 end
